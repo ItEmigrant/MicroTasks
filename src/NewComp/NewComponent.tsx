@@ -12,9 +12,6 @@ type StudentType = {
 
 export const NewComponent = (props: NewComponentType) => {
 
-
-
-
     return (
 
         <ul>
@@ -22,11 +19,10 @@ export const NewComponent = (props: NewComponentType) => {
                 return (
                     <li key={objectFromStudentArray.id}>
                         <span>{objectFromStudentArray.name} </span>
-                        <span> age - {objectFromStudentArray.age}</span>
+                        <span> age => {objectFromStudentArray.age}</span>
                     </li>
                 )
             })}
-
 
         </ul>
 
