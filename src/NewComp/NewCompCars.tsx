@@ -11,12 +11,18 @@ type carsType = {
 const NewCompCars = (props: NewCompType) => {
     return (
         <table>
-            {props.cars.map((objektFromCarsArray, index) => {
+            <tr>
+                <th>Number</th>
+                <th>manufacturer</th>
+                <th>model</th>
+            </tr>
+            {props.cars.map((objectFromCarsArray, index) => {
                 return (
+
                     <tr>
                         <td>{index + 1}</td>
-                        <td>{objektFromCarsArray.manufacturer} </td>
-                        <td>{objektFromCarsArray.model} </td>
+                        <td>{objectFromCarsArray.manufacturer} </td>
+                        <td>{objectFromCarsArray.model} </td>
 
                     </tr>
                 )

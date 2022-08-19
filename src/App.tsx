@@ -5,6 +5,7 @@ import {Body} from "./site/Body";
 import {Footer} from "./site/Footer";
 import {NewComponent} from "./NewComp/NewComponent";
 import NewCompCars from "./NewComp/NewCompCars";
+import Button from "./Button/button";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
     //UI:
     return (
         <>
+            <Button/>
             <Header title={'NEW TITLE'}/>
             <Body titleForBody={'NEW BODY'}/>
             <Footer titleForFooter={'NEW FOOTER'}/>
