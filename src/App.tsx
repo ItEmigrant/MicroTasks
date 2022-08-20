@@ -7,6 +7,7 @@ import {NewComponent} from "./NewComp/NewComponent";
 import NewCompCars from "./NewComp/NewCompCars";
 import Button from "./Button/button";
 import UnButton from "./Button/UnButton";
+import UseState from "./Components/useState";
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
             <Footer titleForFooter={'NEW FOOTER'}/>
             <NewComponent students={people}/>
             <NewCompCars cars={topCars}/>
+            <UseState/>
         </>
     );
 }
