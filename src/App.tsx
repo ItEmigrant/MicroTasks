@@ -8,6 +8,7 @@ import NewCompCars from "./NewComp/NewCompCars";
 import Button from "./Button/button";
 import UnButton from "./Button/UnButton";
 import UseState from "./Components/useState";
+import Filter from "./Components/filter";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
             <NewComponent students={people}/>
             <NewCompCars cars={topCars}/>
             <UseState/>
+            <Filter/>
         </>
     );
 }
