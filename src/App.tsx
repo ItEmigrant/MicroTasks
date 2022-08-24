@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import {Header} from "./site/Header";
+import {FullInput} from "./UniversalInput/FullInput";
+
+/*import {Header} from "./site/Header";
 import {Body} from "./site/Body";
 import {Footer} from "./site/Footer";
 import {NewComponent} from "./NewComp/NewComponent";
@@ -8,12 +10,12 @@ import NewCompCars from "./NewComp/NewCompCars";
 import Button from "./Button/button";
 import UnButton from "./Button/UnButton";
 import UseState from "./Components/useState";
-import Filter from "./Components/filter";
+import Filter from "./Components/filter";*/
 
 
 function App() {
     //BILL
-    const people = [
+    /*const people = [
         {id: 1, name: "James", age: 8},
         {id: 2, name: "Robert", age: 18},
         {id: 3, name: "John", age: 28},
@@ -30,13 +32,13 @@ function App() {
         {manufacturer:'BMW', model:'m5cs'},
         {manufacturer:'Mercedes', model:'e63s'},
         {manufacturer:'Audi', model:'rs6'}
-    ]
+    ]*/
 
 
     //UI:
-    return (
-        <>
-            <UnButton/>
+    /*return (
+
+        {/!* <UnButton/>
             <Button/>
             <Header title={'NEW TITLE'}/>
             <Body titleForBody={'NEW BODY'}/>
@@ -44,9 +46,40 @@ function App() {
             <NewComponent students={people}/>
             <NewCompCars cars={topCars}/>
             <UseState/>
-            <Filter/>
-        </>
-    );
+            <Filter/>*!/}*/
+    let [message, setMessage] = useState([
+        {message: 'message1'},
+        {message: 'message2'},
+        {message: 'message3'},
+
+
+    ])
+    const call = (title: string) => {
+        let newMessage = {message: title}
+       setMessage([newMessage, ...message])
+    }
+
+    return (
+
+        <div className={'App'}>
+            {/* <div>
+                <input/>
+                <button>+</button>
+            </div>*/}
+            <FullInput call={call}/>
+
+            {message.map((el, index) => {
+                return (
+
+                    <div key={index}>{el.message}</div>
+
+
+                )
+            })}
+
+        </div>
+    )
 }
+
 
 export default App;
