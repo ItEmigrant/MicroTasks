@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import './App.css';
-import {FullInput} from "./UniversalInput/FullInput";
+/*import {FullInput} from "./UniversalInput/FullInput";*/
+import {Input} from "./UniversalInput/Input";
+import {Button} from "./UniversalInput/Button";
 
 /*import {Header} from "./site/Header";
 import {Body} from "./site/Body";
@@ -51,14 +53,18 @@ function App() {
         {message: 'message1'},
         {message: 'message2'},
         {message: 'message3'},
-
-
     ])
+
+    let [title, setTitle] = useState('')
+
     const call = (title: string) => {
         let newMessage = {message: title}
        setMessage([newMessage, ...message])
     }
-
+    const callBackButtonHandler = () => {
+        call(title)
+        setTitle('')
+    }
     return (
 
         <div className={'App'}>
@@ -66,8 +72,9 @@ function App() {
                 <input/>
                 <button>+</button>
             </div>*/}
-            <FullInput call={call}/>
-
+            {/*<FullInput call={call}/>*/}
+            <Input setTitle={setTitle} title={title}/>
+            <Button name={'+'} callBack={callBackButtonHandler}/>
             {message.map((el, index) => {
                 return (
 

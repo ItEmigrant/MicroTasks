@@ -9,8 +9,8 @@ export const FullInput = (props:FullInputPropsType) => {
     const onChangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
 
         setTitle(event.currentTarget.value)
-
     }
+
     const onClickButtonHandler = () => {
        props.call(title)
        setTitle('')
