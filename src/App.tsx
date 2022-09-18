@@ -1,92 +1,115 @@
 import React, {useState} from 'react';
 import './App.css';
-/*import {FullInput} from "./UniversalInput/FullInput";*/
-import {Input} from "./UniversalInput/Input";
-import {Button} from "./UniversalInput/Button";
+import {Todolist} from './Todolist';
+import {v1} from 'uuid';
 
-/*import {Header} from "./site/Header";
-import {Body} from "./site/Body";
-import {Footer} from "./site/Footer";
-import {NewComponent} from "./NewComp/NewComponent";
-import NewCompCars from "./NewComp/NewCompCars";
-import Button from "./Button/button";
-import UnButton from "./Button/UnButton";
-import UseState from "./Components/useState";
-import Filter from "./Components/filter";*/
 
+export type todolistsType = {
+    id: string
+    title: string
+    filter: FilterValuesType
+}
+export type FilterValuesType = "all" | "active" | "completed";
 
 function App() {
-    //BILL
-    /*const people = [
-        {id: 1, name: "James", age: 8},
-        {id: 2, name: "Robert", age: 18},
-        {id: 3, name: "John", age: 28},
-        {id: 4, name: "Michael", age: 38},
-        {id: 5, name: "William", age: 48},
-        {id: 6, name: "David", age: 58},
-        {id: 7, name: "Richard", age: 68},
-        {id: 8, name: "Joseph", age: 78},
-        {id: 9, name: "Thomas", age: 88},
-        {id: 10, name: "Charles", age: 98},
-        {id: 11, name: "Christopher", age: 108}
-    ]
-    const topCars = [
-        {manufacturer:'BMW', model:'m5cs'},
-        {manufacturer:'Mercedes', model:'e63s'},
-        {manufacturer:'Audi', model:'rs6'}
-    ]*/
 
+    // let [tasks, setTasks] = useState([
+    //     {id: v1(), title: "HTML&CSS", isDone: true},
+    //     {id: v1(), title: "JS", isDone: true},
+    //     {id: v1(), title: "ReactJS", isDone: false},
+    //     {id: v1(), title: "Rest API", isDone: false},
+    //     {id: v1(), title: "GraphQL", isDone: false},
+    // ]);
+    // let [filter, setFilter] = useState<FilterValuesType>("all");
 
-    //UI:
-    /*return (
+    let todolistID1 = v1();
+    let todolistID2 = v1();
 
-        {/!* <UnButton/>
-            <Button/>
-            <Header title={'NEW TITLE'}/>
-            <Body titleForBody={'NEW BODY'}/>
-            <Footer titleForFooter={'NEW FOOTER'}/>
-            <NewComponent students={people}/>
-            <NewCompCars cars={topCars}/>
-            <UseState/>
-            <Filter/>*!/}*/
-    let [message, setMessage] = useState([
-        {message: 'message1'},
-        {message: 'message2'},
-        {message: 'message3'},
+    let [todolists, setTodolists] = useState<Array<todolistsType>>([
+        {id: todolistID1, title: 'What to learn', filter: 'all'},
+        {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
 
-    let [title, setTitle] = useState('')
+    let [tasks, setTasks] = useState({
+        [todolistID1]: [
+            {id: v1(), title: "HTML&CSS", isDone: true},
+            {id: v1(), title: "JS", isDone: true},
+            {id: v1(), title: "ReactJS", isDone: false},
+            {id: v1(), title: "Rest API", isDone: false},
+            {id: v1(), title: "GraphQL", isDone: false},
+        ],
+        [todolistID2]: [
+            {id: v1(), title: "HTML&CSS2", isDone: true},
+            {id: v1(), title: "JS2", isDone: true},
+            {id: v1(), title: "ReactJS2", isDone: false},
+            {id: v1(), title: "Rest API2", isDone: false},
+            {id: v1(), title: "GraphQL2", isDone: false},
+        ]
+    });
 
-    const call = (title: string) => {
-        let newMessage = {message: title}
-       setMessage([newMessage, ...message])
+
+    function removeTask(todolistID: string, id: string) {
+
+        setTasks({...tasks, [todolistID]: tasks[todolistID].filter(t => t.id != id)});
     }
-    const callBackButtonHandler = () => {
-        call(title)
-        setTitle('')
+
+    function addTask(todolistID: string, title: string) {
+        let newTask = {id: v1(), title: title, isDone: false}
+        setTasks({...tasks, [todolistID]: [newTask, ...tasks[todolistID] ]})
+
+        /* let task = {id: v1(), title: title, isDone: false};
+         let newTasks = [task, ...tasks];
+         setTasks(newTasks);*/
     }
+
+    function changeStatus(todolistID: string,taskId: string, isDone: boolean) {
+        setTasks ({...tasks, [todolistID]: tasks[todolistID].map(m=>m.id===taskId ? {...m, isDone:isDone} : m )})
+
+        /*let task = tasks.find(t => t.id === taskId);
+        if (task) {
+            task.isDone = isDone;
+        }
+
+        setTasks([...tasks]);*/
+    }
+
+
+    /* let tasksForTodolist = tasks;*/
+
+
+    function changeFilter(todolistID: string, value: FilterValuesType) {
+        setTodolists(todolists.map(filtered => filtered.id === todolistID ? {...filtered, filter: value} : filtered));
+    }
+
+
     return (
+        <div className="App">
 
-        <div className={'App'}>
-            {/* <div>
-                <input/>
-                <button>+</button>
-            </div>*/}
-            {/*<FullInput call={call}/>*/}
-            <Input setTitle={setTitle} title={title}/>
-            <Button name={'+'} callBack={callBackButtonHandler}/>
-            {message.map((el, index) => {
+            {todolists.map((elTodoList) => {
+                let tasksForTodolist = tasks[elTodoList.id];
+                if (elTodoList.filter === "active") {
+                    tasksForTodolist = tasks[elTodoList.id].filter(t => !t.isDone);
+                }
+                if (elTodoList.filter === "completed") {
+                    tasksForTodolist = tasks[elTodoList.id].filter(t => t.isDone);
+                }
                 return (
-
-                    <div key={index}>{el.message}</div>
-
-
+                    <Todolist
+                        key={elTodoList.id}
+                        todolistID={elTodoList.id}
+                        title={elTodoList.title}
+                        tasks={tasksForTodolist}
+                        removeTask={removeTask}
+                        changeFilter={changeFilter}
+                        addTask={addTask}
+                        changeTaskStatus={changeStatus}
+                        filter={elTodoList.filter}
+                    />
                 )
+
             })}
-
         </div>
-    )
+    );
 }
-
 
 export default App;
