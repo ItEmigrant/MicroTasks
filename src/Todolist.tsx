@@ -8,12 +8,12 @@ type TaskType = {
 }
 
 type PropsType = {
-    todolistID:string
+    todolistID: string
     title: string
     tasks: Array<TaskType>
     removeTask: (todolistID: string,taskId: string) => void
     changeFilter: (todolistID:string, value: FilterValuesType) => void
-    addTask: (todolistID: string, title: string) => void
+    addTask: (todolistID: string,title: string) => void
     changeTaskStatus: (todolistID: string,taskId: string, isDone: boolean) => void
     filter: FilterValuesType
 }
@@ -38,12 +38,12 @@ export function Todolist(props: PropsType) {
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null);
-        if (e.key === 'Enter') {
+        if (e.charCode === 13) {
             addTask();
         }
     }
 
-    const onAllClickHandler = () => props.changeFilter(props.todolistID,'all');
+    const onAllClickHandler = () => props.changeFilter(props.todolistID, "all");
     const onActiveClickHandler = () => props.changeFilter(props.todolistID,"active");
     const onCompletedClickHandler = () => props.changeFilter(props.todolistID,"completed");
 
@@ -53,7 +53,7 @@ export function Todolist(props: PropsType) {
         <div>
             <input value={title}
                    onChange={onChangeHandler}
-                   onKeyUp={onKeyPressHandler}
+                   onKeyPress={onKeyPressHandler}
                    className={error ? "error" : ""}
             />
             <button onClick={addTask}>+</button>
@@ -62,9 +62,9 @@ export function Todolist(props: PropsType) {
         <ul>
             {
                 props.tasks.map(t => {
-                    const onClickHandler = () => props.removeTask(props.todolistID,t.id)
+                    const onClickHandler = () => props.removeTask(props.todolistID, t.id)
                     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        props.changeTaskStatus(props.todolistID,t.id, e.currentTarget.checked);
+                        props.changeTaskStatus(props.todolistID, t.id, e.currentTarget.checked);
                     }
 
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
